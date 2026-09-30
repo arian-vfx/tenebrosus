@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tenebrosus</title>
+  <style>
+    body {
+      background-color: black;
+      color: #706c6c;
+      font-family: monospace;
+      margin: 0;
+      padding: 20px;
+    }
+    .terminal {
+      border: 2px solid #380202;
+      padding: 20px;
+      height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 20px #380202;
+    }
+    .line {
+      margin: 5px 0;
+    }
+    .blink {
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal" id="terminal"></div>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+
+    // Creepy phrases to inject
+    const scaryPhrases = [
+      "YOU WILL BE DEAD sJBDKsdKSHLsnfsmncashABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+      "WE ARE WATCHING lCHLSFHSALflAShfhS,aNFABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+      "NO ESCAPE dgADHGDKLAGNDFDHAD574WULKAGNABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+      "YOUR TIME IS UP GNGFNFR658GNZBDFDNZDGNABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+      "WELCOME TO THE VOID QYHQTHGH6WQ4yrgfggABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()",
+      "THE END IS NEAR badlglfejgei498qt-47q3ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
+    ];
+
+    function randomLine() {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+      let str = "";
+      for (let i = 0; i < 400; i++) {
+        str += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return str;
+    }
+
+    function addLine() {
+      const line = document.createElement("div");
+      line.className = "line";
+
+      // 1 in 15 chance to show a scary phrase instead of gibberish
+      if (Math.random() < 0.07) {
+        line.textContent = "> " + scaryPhrases[Math.floor(Math.random() * scaryPhrases.length)];
+      } else {
+        line.textContent = "> " + randomLine();
+      }
+
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight; // auto-scroll
+    }
+
+    setInterval(addLine, 200); // new line every 200ms
+  </script>
+</body>
+</html>
